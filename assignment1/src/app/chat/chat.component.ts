@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {SocketService} from '../services/socket.service';
+import {RootService} from '../services/root.service';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-chat',
@@ -13,10 +15,14 @@ export class ChatComponent implements OnInit {
   messages: string[]= [];
   ioConnection: any;
 
-  constructor(private socketService: SocketService) { }
+  constructor(private socketService: SocketService, private rootService: RootService) { }
 
   ngOnInit() {
     this.initIoConnection();
+
+    this.getData();
+
+    this.callData();
   }
 
   private initIoConnection(){
@@ -35,5 +41,22 @@ export class ChatComponent implements OnInit {
       console.log("no message");
     }
   }
+
+  private getData(){
+    this.rootService.getAPIData().subscribe((response)=>{
+        console.log('response is ', response)
+    },(error) => {
+        console.log('error is ', error)
+    })
+  }
+
+  private callData(){
+    this.rootService.postAPIData().subscribe((response)=>{
+          console.log('response from post data is ', response);
+        },(error)=>{
+          console.log('error during post is ', error)
+        })
+  }
+
 
 }
