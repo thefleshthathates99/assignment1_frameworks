@@ -20,9 +20,9 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     this.initIoConnection();
 
-    this.getData();
+    // this.getData();
 
-    this.callData();
+    //this.callData();
   }
 
   private initIoConnection(){
@@ -40,6 +40,7 @@ export class ChatComponent implements OnInit {
     }else{
       console.log("no message");
     }
+    this.callData();
   }
 
   private getData(){
@@ -51,7 +52,7 @@ export class ChatComponent implements OnInit {
   }
 
   private callData(){
-    this.rootService.postAPIData().subscribe((response)=>{
+    this.rootService.postAPIData(this.messages).subscribe((response)=>{
           console.log('response from post data is ', response);
         },(error)=>{
           console.log('error during post is ', error)

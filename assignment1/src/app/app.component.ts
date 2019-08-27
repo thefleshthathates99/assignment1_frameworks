@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Assignment1';
+  title = 'The Legendary Assignment 1 for Software Frameworks (3813ICT) Demonstration Model';
 
 
 }

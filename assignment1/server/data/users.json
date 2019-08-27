@@ -1,5 +1,26 @@
-[
-  {
-    "quote": "Hello Again!"
-  }
+{
+  "userList": [
+    {
+      "id": 1,
+      "name": "Zane",
+      "username": "zane@gmail.com",
+      "password": "zane",
+      "status": "super"
+    },
+    {
+      "id": 2,
+      "name": "Minami",
+      "username": "minami@gmail.com",
+      "password": "bestgirl",
+      "status": "group assist"
+    },
+    {
+      "id": 3,
+      "name": "Ochako",
+      "username": "uravity@gmail.com",
+      "password": "float",
+      "status": "group admin"
+    }
 ]
+
+}

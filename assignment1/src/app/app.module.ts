@@ -7,11 +7,13 @@ import { ChatComponent } from './chat/chat.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SocketService } from './services/socket.service';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChatComponent
+    ChatComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,

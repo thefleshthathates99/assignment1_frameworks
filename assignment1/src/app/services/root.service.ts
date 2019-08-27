@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,12 @@ export class RootService {
 
   constructor(private http: HttpClient) { }
 
-  getAPIData(){
-      return this.http.get('https://jsonplaceholder.typicode.com/users')//replace with my user data
+  getAPIData():  Observable<any> {
+        return this.http.get("./server/data/users.json");
     }
 
-postAPIData(){
-    return this.http.post('/', {'firstName' : 'Code', 'lastName' : 'Handbook'})
+postAPIData(responseData){
+    return this.http.post('http://localhost:3000/postData', {'response': responseData})
   }
 
 }
