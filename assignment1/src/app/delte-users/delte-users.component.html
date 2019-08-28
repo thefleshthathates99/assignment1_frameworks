@@ -1,5 +1,6 @@
 <div class="container">
     <h1>Delete Users</h1>
+    <button (click)="goBack()">Go Back</button>
   </div>
   <br>
   <br>
@@ -8,8 +9,22 @@
         <div *ngFor="let user of userArray.userList">
           <div *ngIf="user.username==this.displayUsername; else elseBlock"></div>
           <ng-template #elseBlock>
-              <h4>{{user.name}}</h4>
+              <h4>{{user.name}} -- Id: {{user.id}}</h4>
           </ng-template>
         </div> 
-        <br>
+        
       </div>
+      <br>
+      <br>
+      <div class="container">
+          <form>
+              <label>Id:</label><input [(ngModel)]="deleteId" type="text" name="deleteId"/><br>
+            <br>
+          <button (click)=deleteUser()>Delete</button>
+      </form>
+      </div>
+      <br>
+      <br>
+    <div class="container">
+      <button (click)=testPost()>Save</button>
+    </div>

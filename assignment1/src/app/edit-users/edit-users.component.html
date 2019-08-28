@@ -1,5 +1,6 @@
 <div class="container">
   <h1>Edit Users</h1>
+  <button (click)="goBack()">Go Back</button>
 </div>
 <br>
 <br>
@@ -8,8 +9,57 @@
         <div *ngFor="let user of userArray.userList">
           <div *ngIf="user.username==this.displayUsername; else elseBlock"></div>
           <ng-template #elseBlock>
-              <h4>{{user.name}}</h4>
+              <h4>{{user.name}} -- Id: {{user.id}}</h4>
           </ng-template>
         </div> 
         <br>
+      </div>
+      <br>
+      <br>
+      <div class="container">
+        <h2>Create a New User</h2>
+        <form>
+          <label>Name:</label><input [(ngModel)]="newName" type="text" name="newName"/><br>
+          <label>Email:</label><input [(ngModel)]="newEmail" type="text" name="newEmail"/><br>
+          <label>Password:</label><input [(ngModel)]="newPassword" type="text" name="newPassword"/><br>
+          <label>Role:</label>
+          <select id="newRole" name="newRole" [(ngModel)]="newRole">
+              <option value="super">Super User</option>
+              <option value="group assist">Group Assitant</option>
+              <option value="group admin">Group Admin</option>
+              <option value="user">Basic User</option>
+            </select>
+            <br>
+            <button (click)=addUser()>Add User</button>
+        </form>
+        
+      </div>
+      <br>
+      <br>
+      <div class="container">
+          <h2>Edit User</h2>
+          <form>
+            <label>Name:</label>
+            <select id="userEdit" name="userEdit" [(ngModel)]="userEdit">
+                  <option *ngFor="let name of namesArray" value={{name}}>
+                    {{name}}
+                </option>
+              </select>
+            <br>
+            <label>Role:</label>
+            <select id="editRole" name="editRole" [(ngModel)]="editRole">
+                <option value="super">Super User</option>
+                <option value="group assist">Group Assitant</option>
+                <option value="group admin">Group Admin</option>
+                <option value="user">Basic User</option>
+              </select>
+              <br>
+              <button (click)=editUser()>Edit User</button>
+          </form>
+          
+        </div>
+        <br>
+        <br>
+      <div class="container">
+        <button (click)=testPost()>Save</button>
       </div>

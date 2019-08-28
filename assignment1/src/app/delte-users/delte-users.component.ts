@@ -17,6 +17,8 @@ export class DelteUsersComponent implements OnInit {
   userStatus: any;
   userName: any;
 
+  deleteId: any;
+
   ngOnInit() {
     this.checkLoadData();
     
@@ -25,7 +27,7 @@ export class DelteUsersComponent implements OnInit {
 
   private getData(){
     this.rootService.getAPIData().subscribe((response)=>{
-        this.userArray = response;
+        this.userArray = response.responseData ;
         console.log(this.userArray);
     },(error) => {
         console.log('error is ', error)
@@ -42,6 +44,35 @@ export class DelteUsersComponent implements OnInit {
     this.loginCheck = sessionStorage.getItem("logCheck");
     this.userStatus = sessionStorage.getItem("status");
     this.userName = sessionStorage.getItem("name");
+  }
+
+  private goBack(){
+    this.router.navigateByUrl('/chat');
+  }
+
+  private deleteUser(){
+    for(let i = 0; i < this.userArray.userList.length; i++){
+      var toBeDeleted = parseInt(this.deleteId)
+      if (this.userArray.userList[i].id == toBeDeleted){
+        var deleting = this.userArray.userList.indexOf(this.userArray.userList[i])
+        console.log(deleting)
+        alert("User deleted: " + this.userArray.userList[deleting].name)
+        this.userArray.userList.splice(deleting, 1);
+        console.log(this.userArray)
+        
+        break;
+      } 
+    }
+  }
+
+  private testPost(){
+    this.rootService.saveAPIData(this.userArray).subscribe((response)=>{
+      console.log(response);
+      alert("Changes Saved")
+      this.router.navigateByUrl('/chat');
+  },(error) => {
+      console.log('error is ', error)
+  })
   }
 
 }

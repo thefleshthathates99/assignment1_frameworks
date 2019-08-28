@@ -17,4 +17,7 @@ postAPIData(responseData){
     return this.http.post('http://localhost:3000/postData', {'response': responseData})
   }
 
+  saveAPIData(responseData){
+    return this.http.post('http://localhost:3000/saveData', {responseData})
+  }
 }

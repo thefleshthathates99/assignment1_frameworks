@@ -27,5 +27,8 @@ app.get('/', (req,res)=> {
 })
 
 app.post('/postData', bodyParser.json(), (req, res) => {
+
     res.json(req.body)
 })
+
+app.post('/saveData', require('./routes/saveData'));

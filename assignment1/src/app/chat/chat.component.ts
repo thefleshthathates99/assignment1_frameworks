@@ -29,9 +29,9 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     this.initIoConnection();
 
-    this.checkLoadData();
-
     this.getData();
+
+    this.checkLoadData();
 
     this.callData();
 
@@ -66,7 +66,7 @@ export class ChatComponent implements OnInit {
 
   private getData(){
     this.rootService.getAPIData().subscribe((response)=>{
-        this.userArray = response;
+        this.userArray = response.responseData ;
         console.log(this.userArray);
     },(error) => {
         console.log('error is ', error)
@@ -79,6 +79,7 @@ export class ChatComponent implements OnInit {
         },(error)=>{
           console.log('error during post is ', error)
         })
+
   }
 
   private checkLoadData(){

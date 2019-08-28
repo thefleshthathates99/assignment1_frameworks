@@ -28,7 +28,7 @@ export class LoginFormComponent implements OnInit {
   private getData(){
     this.rootService.getAPIData().subscribe((response)=>{
         console.log('response is ', response)
-        this.userData = response;
+        this.userData = response.responseData;
         console.log(this.userData);
     },(error) => {
         console.log('error is ', error)
