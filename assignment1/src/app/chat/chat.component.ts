@@ -21,6 +21,7 @@ export class ChatComponent implements OnInit {
   userStatus: any;
   userName: any;
   userArray: any;
+  groupArray: any;
 
   displayName: "";
 
@@ -71,6 +72,14 @@ export class ChatComponent implements OnInit {
     },(error) => {
         console.log('error is ', error)
     })
+
+    this.rootService.getGroupData().subscribe((response)=>{
+      this.groupArray = response.groupsList;
+      console.log(this.groupArray);
+  },(error) => {
+      console.log('error is ', error)
+  })
+
   }
 
   private callData(){
