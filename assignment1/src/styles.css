@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+    background-color: rgb(0, 203, 235);
+  }
+
+  .container {
+    border-style: dashed;
+    border-width: 2px;
+    border-color: black;
+    padding: 10px;
+    background-color: white;
+  }

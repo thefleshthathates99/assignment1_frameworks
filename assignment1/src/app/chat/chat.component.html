@@ -1,4 +1,15 @@
-
+<div class="background">
+<br>
+<button (click)="logout()" class="logout_button">Logout</button>
+<br>
+<br>
+<div class="container">
+  <h2>Hello, {{displayName}}</h2>
+  <br>
+  <h3>Priviliges: {{userStatus}}</h3>
+</div>
+<br>
+<br>
   <div class="container">
     <form>
       <div class="form-group">
@@ -15,3 +26,22 @@
       <li *ngFor="let message of messages">{{message}}</li>
       </ul>
   </div>
+  <br>
+  <br>
+
+  <div class="container" *ngIf="this.userStatus=='super'">
+    <h2>List of Registered Users</h2>
+    <div *ngFor="let user of userArray.userList">
+      <div *ngIf="user.username==this.displayUsername; else elseBlock"></div>
+      <ng-template #elseBlock>
+          <h4>{{user.name}}</h4>
+      </ng-template>
+    </div> 
+    <br>
+    <button (click)="goToDelete()">Delete Users</button>
+    <br>
+    <br>
+    <button (click)="goToAddEdit()">Add/Edit Users</button>
+  </div>
+
+</div>

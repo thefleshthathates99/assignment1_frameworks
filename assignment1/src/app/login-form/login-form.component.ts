@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {RootService} from '../services/root.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login-form',
@@ -10,14 +12,18 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor(private rootService: RootService) { }
+  username = "";
+  password = "";
+
+  constructor(private rootService: RootService, private router: Router) { }
 
   ngOnInit() {
     this.getData();
 
+    console.log(sessionStorage);
   }
 
-  public userData = '';
+  public userData: any;
 
   private getData(){
     this.rootService.getAPIData().subscribe((response)=>{
@@ -30,9 +36,26 @@ export class LoginFormComponent implements OnInit {
   }
 
   public login(){
-    for (let i=0; i < 25; i++){
-      console.log(this.userData.userList[i]);
+    sessionStorage.clear();
+    console.log(this.username + " " + this.password)
+    for (let i=0; i < this.userData.userList.length; i++){
+      //console.log(this.userData.userList[i].name);
+      if(this.username == this.userData.userList[i].username && this.password == this.userData.userList[i].password){
+        console.log("Success!");
+        sessionStorage.setItem("status", this.userData.userList[i].status)
+        sessionStorage.setItem("name", this.userData.userList[i].name)
+        sessionStorage.setItem("username", this.username);
+        sessionStorage.setItem("logCheck", "true");
+        break;
+      } else {
+        console.log("Not registered");
+        sessionStorage.setItem("username", this.username);
+        sessionStorage.setItem("logCheck", "true");
+      
+      }
+      
     }
+    this.router.navigateByUrl('/chat');
     
   }
 

@@ -3,6 +3,7 @@ import {SocketService} from '../services/socket.service';
 import {RootService} from '../services/root.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -15,14 +16,34 @@ export class ChatComponent implements OnInit {
   messages: string[]= [];
   ioConnection: any;
 
-  constructor(private socketService: SocketService, private rootService: RootService) { }
+  displayUsername: any;
+  loginCheck: any;
+  userStatus: any;
+  userName: any;
+  userArray: any;
+
+  displayName: "";
+
+  constructor(private socketService: SocketService, private router: Router, private rootService: RootService) { }
 
   ngOnInit() {
     this.initIoConnection();
 
-    // this.getData();
+    this.checkLoadData();
 
-    //this.callData();
+    this.getData();
+
+    this.callData();
+
+    if(this.userName != null){
+        this.displayName = this.userName;
+    } else {
+      this.displayName = this.displayUsername;
+    }
+
+    if(this.userStatus == null){
+      this.userStatus = "User";
+    }
   }
 
   private initIoConnection(){
@@ -45,7 +66,8 @@ export class ChatComponent implements OnInit {
 
   private getData(){
     this.rootService.getAPIData().subscribe((response)=>{
-        console.log('response is ', response)
+        this.userArray = response;
+        console.log(this.userArray);
     },(error) => {
         console.log('error is ', error)
     })
@@ -57,6 +79,31 @@ export class ChatComponent implements OnInit {
         },(error)=>{
           console.log('error during post is ', error)
         })
+  }
+
+  private checkLoadData(){
+    console.log(sessionStorage.getItem("username"))
+    console.log(sessionStorage.getItem("logCheck"))
+    console.log(sessionStorage.getItem("status"))
+    console.log(sessionStorage.getItem("name"))
+
+    this.displayUsername = sessionStorage.getItem("username");
+    this.loginCheck = sessionStorage.getItem("logCheck");
+    this.userStatus = sessionStorage.getItem("status");
+    this.userName = sessionStorage.getItem("name");
+  }
+
+  private logout(){
+    sessionStorage.clear();
+    this.router.navigateByUrl('/');
+  }
+
+  private goToAddEdit(){
+    this.router.navigateByUrl('/editUsers');
+  }
+
+  private goToDelete(){
+    this.router.navigateByUrl('/deleteUsers');
   }
 
 

@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>Edit Users</h1>
+</div>
+<br>
+<br>
+    <div class="container" *ngIf="this.userStatus=='super'">
+        <h2>List of Registered Users</h2>
+        <div *ngFor="let user of userArray.userList">
+          <div *ngIf="user.username==this.displayUsername; else elseBlock"></div>
+          <ng-template #elseBlock>
+              <h4>{{user.name}}</h4>
+          </ng-template>
+        </div> 
+        <br>
+      </div>

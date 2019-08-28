@@ -1,8 +1,8 @@
 <div class="login-page">
   <div class="form">
     <form class="login-form">
-      <input type="text" placeholder="username"/>
-      <input type="password" placeholder="password"/>
+      <input name ="username" type="text" placeholder="username" id="username" [(ngModel)]="username"/>
+      <input name="password" type="password" placeholder="password" [(ngModel)]="password"/>
       <button (click)="login()">login</button>
     </form>
   </div>

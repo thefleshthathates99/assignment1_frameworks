@@ -8,12 +8,16 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SocketService } from './services/socket.service';
 import { LoginFormComponent } from './login-form/login-form.component';
+import { DelteUsersComponent } from './delte-users/delte-users.component';
+import { EditUsersComponent } from './edit-users/edit-users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    DelteUsersComponent,
+    EditUsersComponent
   ],
   imports: [
     BrowserModule,
