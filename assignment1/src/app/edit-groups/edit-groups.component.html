@@ -1,0 +1,91 @@
+<div class="container">
+  <h1>Edit/Delete Groups</h1>
+  <button (click)="goBack()">Go Back</button>
+</div>
+<br>
+<br>
+
+      <div class="container">
+        <h2>Create a New Group</h2>
+        <form>
+          <label>Group Name:</label><input [(ngModel)]="newName" type="text" name="newName" id="newName"/><br>
+          <label>Group Admin:</label>
+          <select id="newAdmin" name="newAdmin" [(ngModel)]="newAdmin">
+            <option *ngFor="let name of adminAndSuper" value={{name}}>
+              {{name}}
+          </option>
+            </select>
+            <br>
+            <button (click)=addGroup()>Add Group</button>
+        </form>
+        
+      </div>
+      <br>
+      <br>
+      <div class="container">
+          <h2>Add User to Channel</h2>
+          <form>
+            <label>Name:</label>
+            <select id="userChannelAdd" name="userChannelAdd" [(ngModel)]="userChannelAdd">
+                  <option *ngFor="let name of namesArray" value={{name}}>
+                    {{name}}
+                </option>
+              </select>
+            <br>
+            <label>Channels :</label>
+            <select id="channelToAddUser" name="channelToAddUser" [(ngModel)]="channelToAddUser">
+              <option *ngFor="let name of channelsArray" value={{name.ChannelName}}>
+                {{name.ChannelName}}  
+              </option>
+              </select>
+              <br>
+              <button (click)=addUserToChannel()>Add User to Group</button>
+          </form>
+          
+        </div>
+        <br>
+        <br>
+        <div class="container">
+            <h2>Add Assistant to Group</h2>
+            <form>
+              <label>Assistant:</label>
+              <select id="assisGroupAdd" name="assisGroupAdd" [(ngModel)]="assisGroupAdd">
+                    <option *ngFor="let name of assistants" value={{name}}>
+                      {{name}}
+                  </option>
+                </select>
+              <br>
+              <label>Group:</label>
+              <select id="groupToAddAssis" name="groupToAddAssis" [(ngModel)]="groupToAddAssis">
+                <option *ngFor="let name of groupArray" value={{name.groupName}}>
+                  {{name.groupName}}  
+                </option>
+                </select>
+                <br>
+                <button (click)=addAssistantToGroup()>Add User to Group</button>
+            </form>
+            
+          </div>
+          <br>
+          <br>
+          <div class="container">
+              <h2>Add Channel to Group</h2>
+              <form>
+                <label>Channel Name:</label><input type="text" id="newChannelName" name="newChannelName" [(ngModel)]="newChannelName"/>
+                <br>
+                <label>Group:</label>
+                <select id="groupToAddChannel" name="groupToAddChannel" [(ngModel)]="groupToAddChannel">
+                  <option *ngFor="let name of groupArray" value={{name.groupName}}>
+                    {{name.groupName}}  
+                  </option>
+                  </select>
+                  <br>
+                  <button (click)=addChannelToGroup()>Add User to Group</button>
+              </form>
+              
+            </div>
+            <br>
+            <br>
+      <div class="container">
+        <button (click)=testPost()>Save</button>
+      </div>

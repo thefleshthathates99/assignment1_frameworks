@@ -32,3 +32,5 @@ app.post('/postData', bodyParser.json(), (req, res) => {
 })
 
 app.post('/saveData', require('./routes/saveData'));
+
+app.post('/saveGroup', require('./routes/saveGroup'));

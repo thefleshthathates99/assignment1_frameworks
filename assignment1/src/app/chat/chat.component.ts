@@ -22,6 +22,7 @@ export class ChatComponent implements OnInit {
   userName: any;
   userArray: any;
   groupArray: any;
+  channelsArray = [];
 
   displayName: "";
 
@@ -43,7 +44,7 @@ export class ChatComponent implements OnInit {
     }
 
     if(this.userStatus == null){
-      this.userStatus = "User";
+      this.userStatus = "user";
     }
   }
 
@@ -74,8 +75,14 @@ export class ChatComponent implements OnInit {
     })
 
     this.rootService.getGroupData().subscribe((response)=>{
-      this.groupArray = response.groupsList;
+      this.groupArray = response.responseData;
       console.log(this.groupArray);
+      for(let i = 0; i < this.groupArray.length; i++){
+        console.log(this.groupArray[i].groupChannels[0])
+        this.channelsArray.push(this.groupArray[i].groupChannels[0])
+      }
+      console.log(this.channelsArray)
+
   },(error) => {
       console.log('error is ', error)
   })
@@ -115,6 +122,8 @@ export class ChatComponent implements OnInit {
   private goToDelete(){
     this.router.navigateByUrl('/deleteUsers');
   }
-
+  private goToGroup(){
+    this.router.navigateByUrl('/editGroups');
+  }
 
 }

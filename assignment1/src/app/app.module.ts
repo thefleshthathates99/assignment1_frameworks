@@ -10,6 +10,7 @@ import { SocketService } from './services/socket.service';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { DelteUsersComponent } from './delte-users/delte-users.component';
 import { EditUsersComponent } from './edit-users/edit-users.component';
+import { EditGroupsComponent } from './edit-groups/edit-groups.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { EditUsersComponent } from './edit-users/edit-users.component';
     ChatComponent,
     LoginFormComponent,
     DelteUsersComponent,
-    EditUsersComponent
+    EditUsersComponent,
+    EditGroupsComponent
   ],
   imports: [
     BrowserModule,

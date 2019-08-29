@@ -12,7 +12,7 @@ export class EditUsersComponent implements OnInit {
 
   constructor(private router: Router, private rootService: RootService) { }
 
-  userArray: "";
+  userArray: any;
   displayUsername: any;
   loginCheck: any;
   userStatus: any;

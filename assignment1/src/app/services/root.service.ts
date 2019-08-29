@@ -24,4 +24,8 @@ postAPIData(responseData){
   saveAPIData(responseData){
     return this.http.post('http://localhost:3000/saveData', {responseData})
   }
+
+  saveAPIGroupData(responseData){
+    return this.http.post('http://localhost:3000/saveGroup', {responseData})
+  }
 }

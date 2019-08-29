@@ -29,7 +29,7 @@
   <br>
   <br>
 
-  <div class="container" *ngIf="this.userStatus=='group admin'">
+  <div class="container" *ngIf="this.userStatus!='user'">
     <h2>List of Groups and Channels</h2>
     <div *ngFor="let group of groupArray">
           <h2>Name: {{group.groupName}}</h2>
@@ -44,8 +44,8 @@
         {{memebers}}
       </div>
       <br>
-      <div  class="container" *ngFor="let channels of group.groupChannels">
-          <h3>Channel Name: {{channels}}</h3>
+      <div class="withinContainer" *ngFor="let channels of group.groupChannels">
+          <h3>Channel Name: {{channels.ChannelName}}</h3>
           <div>
               <form>
                 <div class="form-group">
@@ -70,46 +70,4 @@
     <button (click)="goToAddEdit()">Add/Edit Groups</button>
     <br>
   </div>
-  <div class="container" *ngIf="this.userStatus=='super'">
-      <h2>List of Groups and Channels</h2>
-      <div *ngFor="let group of groupArray">
-            <h2>Name: {{group.groupName}}</h2>
-            <h3>Admin: {{group.groupAdmin}}</h3>
-            <h3>Group Assists: </h3>
-        <div *ngFor="let assists of group.groupAssists">
-          {{assists}}
-        </div> 
-        <br>
-        <h3>Group Members: </h3>
-        <div *ngFor="let memebers of group.groupUsers">
-          {{memebers}}
-        </div>
-        <br>
-        <div  class="container" *ngFor="let channels of group.groupChannels">
-            <h3>Channel Name: {{channels}}</h3>
-            <div>
-                <form>
-                  <div class="form-group">
-                      <label for="messagecontent">New Message</label>
-                      <input type="text" [(ngModel)]="messagecontent" name="messagecontent" id="messagecontent" class="form-control"/>
-            
-                  </div>
-                  <div class="form-group">
-                    <button (click)="chat(messagecontent)" class = "btn btn-primary">Chat</button>
-                  </div>
-                </form>
-                <h3>Chat Messages</h3>
-                <ul>
-                  <li *ngFor="let message of messages">{{message}}</li>
-                  </ul>
-              </div>
-  
-          </div>
-      </div> 
-      <br>
-      <br>
-      <button (click)="goToAddEdit()">Add/Edit Groups</button>
-      <br>
-    </div>
-
 </div>
