@@ -29,7 +29,7 @@
   <br>
   <br>
 
-  <div class="container" *ngIf="this.userStatus!='user'">
+  <div class="container">
     <h2>List of Groups and Channels</h2>
     <div *ngFor="let group of groupArray">
           <h2>Name: {{group.groupName}}</h2>
@@ -39,13 +39,18 @@
         {{assists}}
       </div> 
       <br>
-      <h3>Group Members: </h3>
-      <div *ngFor="let memebers of group.groupUsers">
-        {{memebers}}
-      </div>
+      
+
       <br>
       <div class="withinContainer" *ngFor="let channels of group.groupChannels">
           <h3>Channel Name: {{channels.ChannelName}}</h3>
+          <br>
+          <h3>Channel Users: </h3>
+          <div *ngFor="let members of channels.ChannelUsers">
+              {{members}}
+          </div>
+          <br>
+          <br>
           <div>
               <form>
                 <div class="form-group">
@@ -62,12 +67,13 @@
                 <li *ngFor="let message of messages">{{message}}</li>
                 </ul>
             </div>
-
+            <br>
         </div>
+        
     </div> 
     <br>
     <br>
-    <button (click)="goToAddEdit()">Add/Edit Groups</button>
+    <button (click)="goToGroupEdit()" *ngIf="userStatus != 'user'">Add/Edit Groups</button>
     <br>
   </div>
 </div>

@@ -26,6 +26,8 @@ export class ChatComponent implements OnInit {
 
   displayName: "";
 
+  channelsDivider: any;
+
   constructor(private socketService: SocketService, private router: Router, private rootService: RootService) { }
 
   ngOnInit() {
@@ -82,7 +84,7 @@ export class ChatComponent implements OnInit {
         this.channelsArray.push(this.groupArray[i].groupChannels[0])
       }
       console.log(this.channelsArray)
-
+      this.channelsDivider = this.channelsArray
   },(error) => {
       console.log('error is ', error)
   })
@@ -117,6 +119,10 @@ export class ChatComponent implements OnInit {
 
   private goToAddEdit(){
     this.router.navigateByUrl('/editUsers');
+  }
+
+  private goToGroupEdit(){
+    this.router.navigateByUrl('/editGroups');
   }
 
   private goToDelete(){

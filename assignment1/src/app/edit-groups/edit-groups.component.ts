@@ -13,7 +13,7 @@ export class EditGroupsComponent implements OnInit {
 
   constructor(private router: Router, private rootService: RootService) { }
 
-  userArray: [];
+  userArray = [];
   groupArray: any;
 
   adminAndSuper = [];
@@ -34,7 +34,20 @@ export class EditGroupsComponent implements OnInit {
 
   channelsArray = [];
 
+  userStatus: any;
+  deleteChannelName: any;
+
+  userToBeRemoved: any;
+  
+  username: any;
+  groupsWithCurAssist = [];
+
+  groupToDelete: any;
+
   ngOnInit() {
+
+    this.loadUserStatus();
+
     this.getData();
 
   }
@@ -58,6 +71,7 @@ export class EditGroupsComponent implements OnInit {
       console.log(this.groupArray);
       for(let i = 0; i < this.groupArray.length; i++){
         this.channelsArray.push(this.groupArray[i].groupChannels[0])
+        console.log(this.groupArray[i].groupChannels[0])
       }
       console.log(this.channelsArray)
       for (let i=0; i < this.userArray.userList.length; i++){
@@ -77,6 +91,10 @@ export class EditGroupsComponent implements OnInit {
         }
       }
       console.log(this.assistants)
+      if(this.userStatus == "group assist"){
+        this.groupFindAssist();
+      }
+
   },(error) => {
       console.log('error is ', error)
   })
@@ -94,10 +112,12 @@ export class EditGroupsComponent implements OnInit {
   }
 
   private addGroup(){
-    var toAddGroup = {"groupName": this.newName,"groupAdmin": this.newAdmin,"groupAssists":[],"groupChannels": []}
+    var toAddGroup = {"groupName": this.newName,"groupAdmin": this.newAdmin,"groupAssists":[],"groupChannels": [{ChannelName: null, ChannelUsers: []}]}
     console.log(toAddGroup)
+
     this.groupArray.push(toAddGroup)
     console.log(this.groupArray)
+    alert("Group added: " + toAddGroup.groupName)
   }
 
   private addUserToChannel(){
@@ -123,6 +143,8 @@ export class EditGroupsComponent implements OnInit {
 
   private addAssistantToGroup(){
     var userFound = "false"
+    console.log(this.groupArray)
+    console.log(this.assistants)
     for(let i = 0; i < this.groupArray.length; i++){
       if(this.groupToAddAssis == this.groupArray[i].groupName){
         for(let jj = 0; jj < this.groupArray[i].groupAssists.length; jj++){
@@ -158,4 +180,67 @@ export class EditGroupsComponent implements OnInit {
       }
     }
   }
+  
+  private loadUserStatus(){
+    this.userStatus = sessionStorage.getItem("status");
+    this.username = sessionStorage.getItem('name')
+
+    console.log(this.userStatus)
+    console.log(this.username)
+  }
+
+  private deleteChannel(){
+    for(let i = 0; i < this.groupArray.length; i++){
+      for(let jj = 0; jj < this.groupArray[i].groupChannels.length; jj++){
+        if(this.groupArray[i].groupChannels[jj].ChannelName == this.deleteChannelName){
+          console.log(this.groupArray[i].groupChannels[jj])
+          this.groupArray[i].groupChannels.splice(jj, 1);
+          alert("Channel " + this.groupArray[i].groupChannels[jj].name + " has been deleted")
+          console.log(this.groupArray[i]) 
+        }
+      }
+    }
+  }
+
+  private groupFindAssist(){
+    for(let i = 0; i < this.groupArray.length; i++){
+      for(let jj = 0; jj < this.groupArray[i].groupAssists.length; jj++){
+        if(this.groupArray[i].groupAssists[jj] == this.username){
+          this.groupsWithCurAssist.push(this.groupArray[i])
+        }
+      }
+    }
+    console.log(this.groupsWithCurAssist)
+    this.channelsArray = [];
+    for(let i = 0; i < this.groupsWithCurAssist.length; i++){
+      this.channelsArray.push(this.groupsWithCurAssist[i].groupChannels[0])
+    }
+    console.log(this.channelsArray)
+  }
+
+  private deleteGroup(){
+    alert("Group Deleted: " + this.groupToDelete)
+    for(let i = 0; i < this.groupArray.length; i++){
+      if(this.groupArray[i].groupName == this.groupToDelete){
+        this.groupArray.splice([i], 1)
+      }
+    }
+    console.log(this.groupArray)
+  }
+
+/*   private removeUser(){
+    for(let i = 0; i < this.groupArray.length; i++){
+      for(let jj = 0; jj < this.groupArray[i].groupChannels.length; jj++){
+        if(this.groupArray[i].groupChannels[jj].ChannelName == this.deleteChannelName){
+          console.log(this.groupArray[i].groupChannels[jj])
+          for(let kk = 0; kk < this.groupArray[i].groupChannels[jj].ChannelUsers.length){
+            if(this.groupArray[i].groupChannels[jj].ChannelUsers[kk] == this.userToBeRemoved){
+              alert("User Deleted: " + this.groupArray[i].groupChannels[jj].ChannelUsers[kk])
+              this.groupArray[i].groupChannels[jj].ChannelUsers.splice([kk], 1)
+            }
+          }
+        }
+      }
+    }
+  } */
 }
