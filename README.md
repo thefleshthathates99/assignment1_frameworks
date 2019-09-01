@@ -2,7 +2,7 @@
 # Zane Stevens -- s5072430
 
 ## Git Organisation
-Git Organisation was simple and basic. Branches weren't used for any part of the project due to my personal profficiency with Git and Project development in general and have just been using the Master branch for all commits and pushes. Commits were made at the end of every development session wih semi-detailed messages, though these are detailed in a way that I would understand each commit (which is bad practice). 
+Git Organisation was simple and basic. Branches weren't used for any part of the project due to my personal profficiency with Git and Project development in general and have just been using the Master branch for all commits and pushes. Commits were made at the end of every development session with semi-detailed messages, though these are detailed in a way that I would understand each commit (which is bad practice). 
 
 ## Data Structures
 Two .JSON files were used to manage the data of the website:
@@ -31,7 +31,7 @@ As the Angular Architecture, the Node architecture was kept simple:
 
 ## Division of Responsibilities
 The division of duties between client and server was simple, and only required two (app.get and app.post(/postData) were just a test function) calls. The /saveData was used to save data to the users.JSON file and the /saveGroup saves data to the groups.JSON file. 
-On the client side, two http.get functions were used to retieve data through the root.service file, allowing the client to use the data.
+On the client side, two http.get functions were used to retrieve data through the root.service file, allowing the client to use the data.
 
 ## Routes
 Four routes (used in the above calls) were utilised, including:
