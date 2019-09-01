@@ -13,8 +13,8 @@ export class RootService {
         return this.http.get("./server/data/users.json");
     }
 
-    getGroupData():  Observable<any> {
-      return this.http.get("./server/data/groups.json");
+  getGroupData():  Observable<any> {
+    return this.http.get("./server/data/groups.json");
   }
 
 postAPIData(responseData){
