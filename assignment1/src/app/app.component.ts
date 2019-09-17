@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'The Legendary Assignment 1 for Software Frameworks (3813ICT) Demonstration Model';
-
+  
+  
 
 }

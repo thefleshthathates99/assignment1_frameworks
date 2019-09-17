@@ -6,10 +6,10 @@
 <br>
     <div class="container" *ngIf="this.userStatus=='super'">
         <h2>List of Registered Users</h2>
-        <div *ngFor="let user of userArray.userList">
+        <div *ngFor="let user of userArray">
           <div *ngIf="user.username==this.displayUsername; else elseBlock"></div>
           <ng-template #elseBlock>
-              <h4>{{user.name}} -- Id: {{user.id}}</h4>
+              <h4>{{user.name}} -- Id: {{user._id}}</h4>
           </ng-template>
         </div> 
         <br>
@@ -58,8 +58,4 @@
           </form>
           
         </div>
-        <br>
-        <br>
-      <div class="container">
-        <button (click)=testPost()>Save</button>
-      </div>
+

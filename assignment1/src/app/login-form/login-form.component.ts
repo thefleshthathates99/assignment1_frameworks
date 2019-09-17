@@ -25,25 +25,31 @@ export class LoginFormComponent implements OnInit {
 
   public userData: any;
 
+  // private addDatatoDB(){
+  //   this.rootService.insertData().subscribe((data)=>{
+  //     console.log(data)
+  //   })
+  // }
+
   private getData(){
-    this.rootService.getAPIData().subscribe((response)=>{
+    this.rootService.getuserData().subscribe((response)=>{
         console.log('response is ', response)
-        this.userData = response.responseData;
-        console.log(this.userData);
+        this.userData = response;
     },(error) => {
         console.log('error is ', error)
     })
+
   }
 
   public login(){
     sessionStorage.clear();
     console.log(this.username + " " + this.password)
-    for (let i=0; i < this.userData.userList.length; i++){
+    for (let i=0; i < this.userData.length; i++){
       //console.log(this.userData.userList[i].name);
-      if(this.username == this.userData.userList[i].username && this.password == this.userData.userList[i].password){
+      if(this.username == this.userData[i].username && this.password == this.userData[i].password){
         console.log("Success!");
-        sessionStorage.setItem("status", this.userData.userList[i].status)
-        sessionStorage.setItem("name", this.userData.userList[i].name)
+        sessionStorage.setItem("status", this.userData[i].status)
+        sessionStorage.setItem("name", this.userData[i].name)
         sessionStorage.setItem("username", this.username);
         sessionStorage.setItem("logCheck", "true");
         break;

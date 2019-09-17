@@ -9,6 +9,9 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
 const PORT = 3000;
+const MongoClient = require('mongodb').MongoClient;  // require MongoClient functionality
+var  ObjectID = require('mongodb').ObjectID;
+
 
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
@@ -22,15 +25,21 @@ sockets.connect(io,PORT);
 
 server.listen(http,PORT);
 
-app.get('/', (req,res)=> {
-  res.send('Welcome to Node API')
-})
+const url = 'mongodb://localhost:27017';
+MongoClient.connect(url, {poolSize:15,useNewUrlParser: true,useUnifiedTopology: true},function(err, client) {
+    //Callback function code. When we have a connection start the rest of the app.
+    if (err) {return console.log(err)}
+        const dbName = 'assignment';
+        const db = client.db(dbName);
+        require('./routes/getGroups.js')(db,app);
+        require('./routes/getUsers.js')(db,app);
+        require('./routes/addData.js')(db,app);
+        require('./routes/addUser.js')(db,app);
+        require('./routes/addGroup.js')(db,app);
+        require('./routes/editUser.js')(db,app);
+        require('./routes/deleteUser.js')(db,app);
+        require('./routes/addUsertoChannel.js')(db,app);
+        // require('./routes/api-update.js')(db,app,ObjectID);
+        // require('./routes/api-deleteitem.js')(db,app,ObjectID);
 
-app.post('/postData', bodyParser.json(), (req, res) => {
-
-    res.json(req.body)
-})
-
-app.post('/saveData', require('./routes/saveData'));
-
-app.post('/saveGroup', require('./routes/saveGroup'));
+});

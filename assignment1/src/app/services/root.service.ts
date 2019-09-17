@@ -9,23 +9,36 @@ export class RootService {
 
   constructor(private http: HttpClient) { }
 
-  getAPIData():  Observable<any> {
-        return this.http.get("./server/data/users.json");
+  insertData(): Observable<any> {
+    return this.http.get("http://localhost:3000/api/addData");
+} 
+
+  getuserData():  Observable<any> {
+        return this.http.get("http://localhost:3000/api/getUsers");
     }
 
   getGroupData():  Observable<any> {
-    return this.http.get("./server/data/groups.json");
+    return this.http.get("http://localhost:3000/api/getGroups");
   }
 
-postAPIData(responseData){
-    return this.http.post('http://localhost:3000/postData', {'response': responseData})
+  addUser(responseData){
+    return this.http.post('http://localhost:3000/api/addNewUser', responseData)
   }
 
-  saveAPIData(responseData){
-    return this.http.post('http://localhost:3000/saveData', {responseData})
+  editUser(responseData){
+    return this.http.post('http://localhost:3000/api/editUser', responseData)
   }
 
-  saveAPIGroupData(responseData){
-    return this.http.post('http://localhost:3000/saveGroup', {responseData})
+  deleteUser(responseData){
+    return this.http.post('http://localhost:3000/api/deleteUser', responseData)
   }
+  
+  addGroup(responseData){
+    return this.http.post('http://localhost:3000/api/addNewGroup', responseData)
+  }
+
+  addUsertoChannel(responseData){
+    return this.http.post('http://localhost:3000/api/addNewUsertoChannel', responseData)
+  }
+
 }

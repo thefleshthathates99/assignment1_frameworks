@@ -26,8 +26,8 @@ export class DelteUsersComponent implements OnInit {
   }
 
   private getData(){
-    this.rootService.getAPIData().subscribe((response)=>{
-        this.userArray = response.responseData ;
+    this.rootService.getuserData().subscribe((response)=>{
+        this.userArray = response ;
         console.log(this.userArray);
     },(error) => {
         console.log('error is ', error)
@@ -51,14 +51,18 @@ export class DelteUsersComponent implements OnInit {
   }
 
   private deleteUser(){
-    for(let i = 0; i < this.userArray.userList.length; i++){
+    for(let i = 0; i < this.userArray.length; i++){
       var toBeDeleted = parseInt(this.deleteId)
-      if (this.userArray.userList[i].id == toBeDeleted){
-        var deleting = this.userArray.userList.indexOf(this.userArray.userList[i])
-        console.log(deleting)
-        alert("User deleted: " + this.userArray.userList[deleting].name)
-        this.userArray.userList.splice(deleting, 1);
-        console.log(this.userArray)
+      if (this.userArray[i]._id == toBeDeleted){
+        this.rootService.deleteUser(this.userArray[i]).subscribe((data)=>{
+          console.log(data);
+        })
+
+        // var deleting = this.userArray.userList.indexOf(this.userArray.userList[i])
+        // console.log(deleting)
+        // alert("User deleted: " + this.userArray.userList[deleting].name)
+        // this.userArray.userList.splice(deleting, 1);
+        // console.log(this.userArray)
         
         break;
       } 

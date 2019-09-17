@@ -37,11 +37,11 @@ export class EditUsersComponent implements OnInit {
   
 
   private getData(){
-    this.rootService.getAPIData().subscribe((response)=>{
-        this.userArray = response.responseData ;
+    this.rootService.getuserData().subscribe((response)=>{
+        this.userArray = response;
         console.log(this.userArray);
-        for (let i=0; i < this.userArray.userList.length; i++){
-          var nameAdd = this.userArray.userList[i].name
+        for (let i=0; i < this.userArray.length; i++){
+          var nameAdd = this.userArray[i].name
           this.namesArray.push(nameAdd)
         }
         console.log(this.namesArray)
@@ -73,10 +73,13 @@ export class EditUsersComponent implements OnInit {
   }
 
   private addUser(){
-    var curId = this.userArray.userList.length;
+    var curId = this.userArray.length;
     var newId = curId + 1
-    var newUserInput = {id: newId, name: this.newName, username: this.newEmail, password: this.newPassword, status: this.newRole}
-    this.userArray.userList.push(newUserInput);
+    newId = parseInt(newId)
+    var newUserInput = {_id: newId, name: this.newName, username: this.newEmail, password: this.newPassword, status: this.newRole}
+    this.rootService.addUser(newUserInput).subscribe((data)=>{
+      console.log(data);
+    })
     console.log(this.userArray);
     alert("User added: " + newUserInput.name)
     }
@@ -86,13 +89,15 @@ export class EditUsersComponent implements OnInit {
     }
 
     private editUser(){
-      for(let i = 0; i < this.userArray.userList.length; i++){
-        if (this.userArray.userList[i].name == this.userEdit){
-          var editing = this.userArray.userList.indexOf(this.userArray.userList[i])
-          console.log(editing)
-          this.userArray.userList[editing].status = this.editRole
-          console.log(this.userArray.userList)
-          alert("User edited: " + this.userArray.userList[i].name)
+      for(let i = 0; i < this.userArray.length; i++){
+        if (this.userArray[i].name == this.userEdit){
+          
+          var editUserInput = this.userArray[i]
+          editUserInput.status = this.editRole;
+          console.log(editUserInput)
+          this.rootService.editUser(editUserInput).subscribe((data)=>{
+            console.log(data);
+          })
         } 
       }
     }

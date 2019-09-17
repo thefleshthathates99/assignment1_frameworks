@@ -59,35 +59,35 @@ export class EditGroupsComponent implements OnInit {
   }
 
   private getData(){
-    this.rootService.getAPIData().subscribe((response)=>{
-        this.userArray = response.responseData ;
+    this.rootService.getuserData().subscribe((response)=>{
+        this.userArray = response;
         console.log(this.userArray);
     },(error) => {
         console.log('error is ', error)
     })
 
     this.rootService.getGroupData().subscribe((response)=>{
-      this.groupArray = response.responseData;
+      this.groupArray = response;
       console.log(this.groupArray);
       for(let i = 0; i < this.groupArray.length; i++){
         this.channelsArray.push(this.groupArray[i].groupChannels[0])
         console.log(this.groupArray[i].groupChannels[0])
       }
       console.log(this.channelsArray)
-      for (let i=0; i < this.userArray.userList.length; i++){
-        var nameAdd = this.userArray.userList[i].name
+      for (let i=0; i < this.userArray.length; i++){
+        var nameAdd = this.userArray[i].name
         this.namesArray.push(nameAdd)
       }
       console.log(this.namesArray)
-      for (let i=0; i < this.userArray.userList.length; i++){
-        if(this.userArray.userList[i].status == "super" || this.userArray.userList[i].status == "group admin"){
-            this.adminAndSuper.push(this.userArray.userList[i].name)
+      for (let i=0; i < this.userArray.length; i++){
+        if(this.userArray[i].status == "super" || this.userArray[i].status == "group admin"){
+            this.adminAndSuper.push(this.userArray[i].name)
         }
       }
       console.log(this.adminAndSuper)
-      for (let i=0; i < this.userArray.userList.length; i++){
-        if(this.userArray.userList[i].status == "group assist"){
-            this.assistants.push(this.userArray.userList[i].name)
+      for (let i=0; i < this.userArray.length; i++){
+        if(this.userArray[i].status == "group assist"){
+            this.assistants.push(this.userArray[i].name)
         }
       }
       console.log(this.assistants)
@@ -112,12 +112,15 @@ export class EditGroupsComponent implements OnInit {
   }
 
   private addGroup(){
-    var toAddGroup = {"groupName": this.newName,"groupAdmin": this.newAdmin,"groupAssists":[],"groupChannels": [{ChannelName: null, ChannelUsers: []}]}
+    var curId = this.groupArray.length;
+    var newId = curId + 1
+    newId = parseInt(newId)
+    var toAddGroup = {"_id": newId, "groupName": this.newName,"groupAdmin": this.newAdmin,"groupAssists":[],"groupChannels": [{ChannelName: "NewChannel", ChannelUsers: [], ChannelChat: []}]}
     console.log(toAddGroup)
+    this.rootService.addGroup(toAddGroup).subscribe((data)=>{
+      console.log(data)
+    })
 
-    this.groupArray.push(toAddGroup)
-    console.log(this.groupArray)
-    alert("Group added: " + toAddGroup.groupName)
   }
 
   private addUserToChannel(){
@@ -132,9 +135,11 @@ export class EditGroupsComponent implements OnInit {
           }
         }
         if(userFound == "false"){
-          //this.groupArray[i].groupChannels[jj].ChannelUsers.push(userToAdd)
           this.groupArray[i].groupChannels[0].ChannelUsers.push(this.userChannelAdd)
           console.log(this.groupArray[i])
+          this.rootService.addUsertoChannel(this.groupArray[i]).subscribe((data)=>{
+            console.log(data)
+          })
         }
       }
     }

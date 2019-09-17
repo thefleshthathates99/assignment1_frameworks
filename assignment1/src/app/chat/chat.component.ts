@@ -69,24 +69,24 @@ export class ChatComponent implements OnInit {
   }
 
   private getData(){
-    this.rootService.getAPIData().subscribe((response)=>{
-        this.userArray = response.responseData ;
+    this.rootService.getuserData().subscribe((response)=>{
+        this.userArray = response;
         console.log(this.userArray);
     },(error) => {
         console.log('error is ', error)
     })
 
     this.rootService.getGroupData().subscribe((response)=>{
-      this.groupArray = response.responseData;
+      this.groupArray = response;
       console.log(this.groupArray);
-      for(let i = 0; i < this.groupArray.length; i++){
-        console.log(this.groupArray[i].groupChannels[0])
-        this.channelsArray.push(this.groupArray[i].groupChannels[0])
-      }
-      console.log(this.channelsArray)
-      this.channelsDivider = this.channelsArray
-  },(error) => {
-      console.log('error is ', error)
+  //     for(let i = 0; i < this.groupArray.length; i++){
+  //       console.log(this.groupArray[i].groupChannels[0])
+  //       this.channelsArray.push(this.groupArray[i].groupChannels[0])
+  //     }
+  //     console.log(this.channelsArray)
+  //     this.channelsDivider = this.channelsArray
+  // },(error) => {
+  //     console.log('error is ', error)
   })
 
   }
