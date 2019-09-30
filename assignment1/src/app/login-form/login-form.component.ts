@@ -43,25 +43,30 @@ export class LoginFormComponent implements OnInit {
 
   public login(){
     sessionStorage.clear();
+    var loginCheck = "false";
     console.log(this.username + " " + this.password)
     for (let i=0; i < this.userData.length; i++){
       //console.log(this.userData.userList[i].name);
       if(this.username == this.userData[i].username && this.password == this.userData[i].password){
         console.log("Success!");
+        loginCheck = "true"
         sessionStorage.setItem("status", this.userData[i].status)
         sessionStorage.setItem("name", this.userData[i].name)
         sessionStorage.setItem("username", this.username);
         sessionStorage.setItem("logCheck", "true");
         break;
       } else {
-        console.log("Not registered");
-        sessionStorage.setItem("username", this.username);
-        sessionStorage.setItem("logCheck", "true");
+        
       
       }
       
     }
-    this.router.navigateByUrl('/chat');
+    if(loginCheck == "true"){
+      this.router.navigateByUrl('/chat');
+    } else {
+      alert("Incorrect Email or Password, please try again")
+    }
+    
     
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RootService} from '../services/root.service';
 import { Router } from '@angular/router';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+//import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 
 @Component({
@@ -120,7 +120,7 @@ export class EditGroupsComponent implements OnInit {
     this.rootService.addGroup(toAddGroup).subscribe((data)=>{
       console.log(data)
     })
-
+    window.location.reload();
   }
 
   private addUserToChannel(){
@@ -143,7 +143,7 @@ export class EditGroupsComponent implements OnInit {
         }
       }
     }
-
+    window.location.reload();
   }
 
   private addAssistantToGroup(){
@@ -161,9 +161,13 @@ export class EditGroupsComponent implements OnInit {
         if(userFound == "false"){
           this.groupArray[i].groupAssists.push(this.assisGroupAdd)
           console.log(this.groupArray[i])
+          this.rootService.updateGroups(this.groupArray[i]).subscribe((data)=>{
+            console.log(data);
+          })
         }
       }
     }
+    window.location.reload();
   }
 
   private addChannelToGroup(){
@@ -184,6 +188,7 @@ export class EditGroupsComponent implements OnInit {
         }
       }
     }
+    window.location.reload();
   }
   
   private loadUserStatus(){
@@ -201,10 +206,14 @@ export class EditGroupsComponent implements OnInit {
           console.log(this.groupArray[i].groupChannels[jj])
           this.groupArray[i].groupChannels.splice(jj, 1);
           alert("Channel " + this.groupArray[i].groupChannels[jj].name + " has been deleted")
+          this.rootService.updateGroups(this.groupArray[i]).subscribe((data)=>{
+            console.log(data);
+          })
           console.log(this.groupArray[i]) 
         }
       }
     }
+
   }
 
   private groupFindAssist(){
@@ -227,10 +236,13 @@ export class EditGroupsComponent implements OnInit {
     alert("Group Deleted: " + this.groupToDelete)
     for(let i = 0; i < this.groupArray.length; i++){
       if(this.groupArray[i].groupName == this.groupToDelete){
-        this.groupArray.splice([i], 1)
+        this.rootService.deleteGroup(this.groupArray[i]).subscribe((data)=>{
+          console.log(data);
+        })
       }
     }
     console.log(this.groupArray)
+    window.location.reload();
   }
 
 /*   private removeUser(){

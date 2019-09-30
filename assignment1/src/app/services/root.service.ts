@@ -32,6 +32,10 @@ export class RootService {
   deleteUser(responseData){
     return this.http.post('http://localhost:3000/api/deleteUser', responseData)
   }
+
+  deleteGroup(responseData){
+    return this.http.post('http://localhost:3000/api/deleteGroup', responseData)
+  }
   
   addGroup(responseData){
     return this.http.post('http://localhost:3000/api/addNewGroup', responseData)
@@ -39,6 +43,10 @@ export class RootService {
 
   addUsertoChannel(responseData){
     return this.http.post('http://localhost:3000/api/addNewUsertoChannel', responseData)
+  }
+
+  updateGroups(responseData){
+    return this.http.post('http://localhost:3000/api/updateGroups', responseData)
   }
 
 }

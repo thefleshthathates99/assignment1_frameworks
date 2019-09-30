@@ -92,11 +92,11 @@ export class ChatComponent implements OnInit {
   }
 
   private callData(){
-    this.rootService.postAPIData(this.messages).subscribe((response)=>{
-          console.log('response from post data is ', response);
-        },(error)=>{
-          console.log('error during post is ', error)
-        })
+    // this.rootService.postAPIData(this.messages).subscribe((response)=>{
+    //       console.log('response from post data is ', response);
+    //     },(error)=>{
+    //       console.log('error during post is ', error)
+    //     })
 
   }
 
