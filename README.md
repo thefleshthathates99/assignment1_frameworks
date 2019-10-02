@@ -1,48 +1,54 @@
-# assignment1_frameworks
+# assignment2_frameworks
 # Zane Stevens -- s5072430
 
 ## Git Organisation
-Git Organisation was simple and basic. Branches weren't used for any part of the project due to my personal profficiency with Git and Project development in general and have just been using the Master branch for all commits and pushes. Commits were made at the end of every development session with semi-detailed messages, though these are detailed in a way that I would understand each commit (which is bad practice). 
+Git Organisation was simple due to the solo development nature of the project. Branches weren't used for any part of the project and the Master branch was used for all commits and pushes. Commits were made at the end of every development session with semi-detailed messages, which detailed what changes were made. 
 
 ## Data Structures
-Two .JSON files were used to manage the data of the website:
-- One for User Data (name, status, email, password)
-- One for Group Data (name, channels, channel members, channel name, group assists)
+A MongoDB database was used for data structuring. This consisted of One "assignment" database with two collections,
+- Users
+- Groups
 
 ## Angular Architecture
-The architecture was kept simple:
+The architecture from the previous version of this project was kept, which includes:
 - Components for Login, User-Edit, User-Delete, Group/Channel-Edit/Delete and Chat (Main page)
-- Services for Data Collection and Saving (root(should have named it something better)) and Sockets
+- Services for Database CRUD operations and Sockets, or rather calling the CRUD operations through the server URL's
 - Models for Server, Listening for requests and sockets
 - Routes were used in the navigation of all pages using the RouterModule import
 
 ## Node Server Architecture
-As the Angular Architecture, the Node architecture was kept simple:
+As the Angular Architecture, the Node architecture was kept as the previous project structured them:
 - Modules included the basic Express imports:
   - Express, Cross-Origin-Requests (CORS), HTTP (for http requests through the node server)
   As well as additional modules to handle data reading, requests, saving and editing
   - Body Parser, File System (fs) and path
-  Also some addition Socket.io imports (I need to work on chat now, got to save time in the future)
+  Though it is worth noting that these were redundancies kept from the previous project.
+  Also some addition Socket.io imports
    - Io using HTTP
+   - MongoDB to access the database, as well as MongoClient to run these commands through
    
    
 - Functions included Listen() which handles starting and listening for server requests and connect() which connects using Socket.io and handles socket implementation
-- Beyond the two .JSON files, listen.js (which contained the Listen() function) and the socket.js (which contains the connect() function) where the only two files used including the original server.js which contained the API requests
 
 ## Division of Responsibilities
-The division of duties between client and server was simple, and only required two (app.get and app.post(/postData) were just a test function) calls. The /saveData was used to save data to the users.JSON file and the /saveGroup saves data to the groups.JSON file. 
-On the client side, two http.get functions were used to retrieve data through the root.service file, allowing the client to use the data.
+The division of duties between client and server was extensive. The client side Angular handled none of the Database CRUD operations, rather these operations were handled by the server after being called by the client side. The data created for this project technically doesn't exist on the server or client, rather this data is created by the addData.js file. This file cannot be accessed by the client side and was only used to load data into the database.
 
 ## Routes
-Four routes (used in the above calls) were utilised, including:
-- getAPIData(): Gets the user data, returning it as an Observable to be manipulated by client side functions
-- getGroupData(): Get the group data, returning it as an Observable to be manipulated by client side functions
-- saveAPIData(): Calls the /saveData route in the server, saving the data to the JSON file
-- saveAPIGroupData(): Calls the /saveGroup route in the server, saving the data to the JSON file
+Multiple routes were used, with each route accessing only one .js file that would handle CRUD operations:
+* require('./routes/getGroups.js'): Retrieve (find({}) on the Group Collection) all group data from the database
+* require('./routes/getUsers.js'): Retrieve (find({}) on the User Collection) all user data from the database
+* require('./routes/addData.js'): Create the data used for the project.
+* require('./routes/addUser.js'): Insert a new User into the user collection
+* require('./routes/addGroup.js'): Insert a new Group into the user collection
+* require('./routes/editUser.js'): Edits a Users' data before sending it to the database
+* require('./routes/deleteUser.js'): Deletes a users' data
+* require('./routes/deleteGroup.js'): Delete a group's data
+* require('./routes/addUsertoChannel.js'): Add a user to a group.ChannelUsers array before updating the group that was edited
+* require('./routes/updateGroups.js'): Blanket function used to save all data changed in the Groups collection
 
 ## Details of Interaction
-The interaction between server and client were basic:
-- Sockets were used (but not required), where the server called the sockets whilst the client displayed and returned variables to be used by the server
-- getData functions were called to the server, so that the server returns an Observable that will be manipulated by the client
-- postData (saveData) functions were called using routes, so that the server recieves the request, saves the data to the JSON files and returns a "success" log to the server which is represented on the client console.log. 
+The interaction between server and client was sparse to reduce possible security issues:
+- Sockets were used, where the server called the sockets whilst the client displayed and returned variables to be used by the server
+- Beyond sockets, interaction was limited to actions between the server and database which could only be called through the client. 
+- Changes to data are displayed/updated every time an action is performed, usually through a refreshing of the page (running ngOnInit again).
    
