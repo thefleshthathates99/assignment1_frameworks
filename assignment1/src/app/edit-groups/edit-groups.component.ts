@@ -76,7 +76,7 @@ export class EditGroupsComponent implements OnInit {
       console.log(this.channelsArray)
       for (let i=0; i < this.userArray.length; i++){
         var nameAdd = this.userArray[i].name
-        this.namesArray.push(nameAdd)
+        this.namesArray.push(nameAdd)                                                   //Sorts data into necessary array for execution
       }
       console.log(this.namesArray)
       for (let i=0; i < this.userArray.length; i++){
@@ -101,23 +101,13 @@ export class EditGroupsComponent implements OnInit {
 
   }
 
-  private testPost(){
-    this.rootService.saveAPIGroupData(this.groupArray).subscribe((response)=>{
-      console.log(response);
-      alert("Changes Saved")
-      this.router.navigateByUrl('/chat');
-  },(error) => {
-      console.log('error is ', error)
-  })
-  }
-
   private addGroup(){
     var curId = this.groupArray.length;
     var newId = curId + 1
     newId = parseInt(newId)
     var toAddGroup = {"_id": newId, "groupName": this.newName,"groupAdmin": this.newAdmin,"groupAssists":[],"groupChannels": [{ChannelName: "NewChannel", ChannelUsers: [], ChannelChat: []}]}
     console.log(toAddGroup)
-    this.rootService.addGroup(toAddGroup).subscribe((data)=>{
+    this.rootService.addGroup(toAddGroup).subscribe((data)=>{     //Calls the addGroup route in rootService, adding a group
       console.log(data)
     })
     window.location.reload();
@@ -137,7 +127,7 @@ export class EditGroupsComponent implements OnInit {
         if(userFound == "false"){
           this.groupArray[i].groupChannels[0].ChannelUsers.push(this.userChannelAdd)
           console.log(this.groupArray[i])
-          this.rootService.addUsertoChannel(this.groupArray[i]).subscribe((data)=>{
+          this.rootService.addUsertoChannel(this.groupArray[i]).subscribe((data)=>{       //Calls the addUsertoChannel route in the rootService
             console.log(data)
           })
         }
@@ -161,7 +151,7 @@ export class EditGroupsComponent implements OnInit {
         if(userFound == "false"){
           this.groupArray[i].groupAssists.push(this.assisGroupAdd)
           console.log(this.groupArray[i])
-          this.rootService.updateGroups(this.groupArray[i]).subscribe((data)=>{
+          this.rootService.updateGroups(this.groupArray[i]).subscribe((data)=>{       //Update groups, adding the newly made assistants
             console.log(data);
           })
         }
@@ -185,6 +175,9 @@ export class EditGroupsComponent implements OnInit {
             {"ChannelName": this.newChannelName, "ChannelUsers": [] }
           )
           console.log(this.groupArray[i])
+          this.rootService.updateGroups(this.groupArray[i]).subscribe((data)=>{     //Adds channel to group, calling the updateGroups route
+            console.log(data);
+          })
         }
       }
     }
@@ -194,7 +187,7 @@ export class EditGroupsComponent implements OnInit {
   private loadUserStatus(){
     this.userStatus = sessionStorage.getItem("status");
     this.username = sessionStorage.getItem('name')
-
+                                                        //Load user data
     console.log(this.userStatus)
     console.log(this.username)
   }
@@ -206,7 +199,7 @@ export class EditGroupsComponent implements OnInit {
           console.log(this.groupArray[i].groupChannels[jj])
           this.groupArray[i].groupChannels.splice(jj, 1);
           alert("Channel " + this.groupArray[i].groupChannels[jj].name + " has been deleted")
-          this.rootService.updateGroups(this.groupArray[i]).subscribe((data)=>{
+          this.rootService.updateGroups(this.groupArray[i]).subscribe((data)=>{               //Update groups with the newly deleted channel
             console.log(data);
           })
           console.log(this.groupArray[i]) 
@@ -236,7 +229,7 @@ export class EditGroupsComponent implements OnInit {
     alert("Group Deleted: " + this.groupToDelete)
     for(let i = 0; i < this.groupArray.length; i++){
       if(this.groupArray[i].groupName == this.groupToDelete){
-        this.rootService.deleteGroup(this.groupArray[i]).subscribe((data)=>{
+        this.rootService.deleteGroup(this.groupArray[i]).subscribe((data)=>{    //Delete group, calling the deleteGroup rootService
           console.log(data);
         })
       }
@@ -245,19 +238,5 @@ export class EditGroupsComponent implements OnInit {
     window.location.reload();
   }
 
-/*   private removeUser(){
-    for(let i = 0; i < this.groupArray.length; i++){
-      for(let jj = 0; jj < this.groupArray[i].groupChannels.length; jj++){
-        if(this.groupArray[i].groupChannels[jj].ChannelName == this.deleteChannelName){
-          console.log(this.groupArray[i].groupChannels[jj])
-          for(let kk = 0; kk < this.groupArray[i].groupChannels[jj].ChannelUsers.length){
-            if(this.groupArray[i].groupChannels[jj].ChannelUsers[kk] == this.userToBeRemoved){
-              alert("User Deleted: " + this.groupArray[i].groupChannels[jj].ChannelUsers[kk])
-              this.groupArray[i].groupChannels[jj].ChannelUsers.splice([kk], 1)
-            }
-          }
-        }
-      }
-    }
-  } */
+
 }

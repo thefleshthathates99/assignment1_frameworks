@@ -52,7 +52,7 @@ export class ChatComponent implements OnInit {
 
   private initIoConnection(){
     this.socketService.initSocket();
-    this.ioConnection = this.socketService.onMessage()
+    this.ioConnection = this.socketService.onMessage()  //Initialise socket connection, pushing messages if they exist
       .subscribe((message:string) => {
         this.messages.push(message);
       });
@@ -61,17 +61,16 @@ export class ChatComponent implements OnInit {
   private chat(){
     if(this.messagecontent){
       this.socketService.send(this.messagecontent);
-      this.messagecontent = null;
+      this.messagecontent = null;                   //Sends message and update message on page
     }else{
       console.log("no message");
     }
-    this.callData();
   }
 
   private getData(){
     this.rootService.getuserData().subscribe((response)=>{
         this.userArray = response;
-        console.log(this.userArray);
+        console.log(this.userArray);                        //Get data from the database, calling the getGroup/getUser data
     },(error) => {
         console.log('error is ', error)
     })
@@ -79,24 +78,7 @@ export class ChatComponent implements OnInit {
     this.rootService.getGroupData().subscribe((response)=>{
       this.groupArray = response;
       console.log(this.groupArray);
-  //     for(let i = 0; i < this.groupArray.length; i++){
-  //       console.log(this.groupArray[i].groupChannels[0])
-  //       this.channelsArray.push(this.groupArray[i].groupChannels[0])
-  //     }
-  //     console.log(this.channelsArray)
-  //     this.channelsDivider = this.channelsArray
-  // },(error) => {
-  //     console.log('error is ', error)
   })
-
-  }
-
-  private callData(){
-    // this.rootService.postAPIData(this.messages).subscribe((response)=>{
-    //       console.log('response from post data is ', response);
-    //     },(error)=>{
-    //       console.log('error during post is ', error)
-    //     })
 
   }
 
@@ -105,7 +87,7 @@ export class ChatComponent implements OnInit {
     console.log(sessionStorage.getItem("logCheck"))
     console.log(sessionStorage.getItem("status"))
     console.log(sessionStorage.getItem("name"))
-
+                                                                //Load data from sessionStorage
     this.displayUsername = sessionStorage.getItem("username");
     this.loginCheck = sessionStorage.getItem("logCheck");
     this.userStatus = sessionStorage.getItem("status");
@@ -114,22 +96,22 @@ export class ChatComponent implements OnInit {
 
   private logout(){
     sessionStorage.clear();
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/');                             //Clear data from sessionStorage and return to home
   }
-
-  private goToAddEdit(){
-    this.router.navigateByUrl('/editUsers');
-  }
-
-  private goToGroupEdit(){
-    this.router.navigateByUrl('/editGroups');
-  }
-
-  private goToDelete(){
-    this.router.navigateByUrl('/deleteUsers');
-  }
-  private goToGroup(){
-    this.router.navigateByUrl('/editGroups');
-  }
-
+                                                ////////
+  private goToAddEdit(){                              //
+    this.router.navigateByUrl('/editUsers');          //
+  }                                                   //
+                                                      //
+  private goToGroupEdit(){                            //
+    this.router.navigateByUrl('/editGroups');         //
+  }                                                   //
+                                                      //          Literal routes for Navigation
+  private goToDelete(){                               //
+    this.router.navigateByUrl('/deleteUsers');        //
+  }                                                   //
+  private goToGroup(){                                //
+    this.router.navigateByUrl('/editGroups');         //
+  }                                                   //
+                                                ////////
 }

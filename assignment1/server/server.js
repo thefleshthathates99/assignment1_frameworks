@@ -41,7 +41,8 @@ MongoClient.connect(url, {poolSize:15,useNewUrlParser: true,useUnifiedTopology: 
         require('./routes/deleteGroup.js')(db,app);
         require('./routes/addUsertoChannel.js')(db,app);
         require('./routes/updateGroups.js')(db,app);
-        // require('./routes/api-update.js')(db,app,ObjectID);
-        // require('./routes/api-deleteitem.js')(db,app,ObjectID);
+
 
 });
+
+module.exports = app;

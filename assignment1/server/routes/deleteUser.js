@@ -1,5 +1,5 @@
 module.exports = function(db,app){
-    //Route to delete a single item
+    //Route to delete a single user
     
     app.post('/api/deleteUser',function(req,res){
         

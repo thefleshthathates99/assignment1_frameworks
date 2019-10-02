@@ -1,5 +1,5 @@
 module.exports = function(db,app){
-    //Route to manage adding a product
+    //Route to edit a user at _id
   
     app.post('/api/editUser',function(req,res){
       

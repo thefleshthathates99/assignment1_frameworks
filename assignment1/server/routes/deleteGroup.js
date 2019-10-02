@@ -1,5 +1,5 @@
 module.exports = function(db,app){
-    //Route to delete a single item
+    //Route to delete a single group
     
     app.post('/api/deleteGroup',function(req,res){
         

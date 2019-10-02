@@ -25,14 +25,8 @@ export class LoginFormComponent implements OnInit {
 
   public userData: any;
 
-  // private addDatatoDB(){
-  //   this.rootService.insertData().subscribe((data)=>{
-  //     console.log(data)
-  //   })
-  // }
-
   private getData(){
-    this.rootService.getuserData().subscribe((response)=>{
+    this.rootService.getuserData().subscribe((response)=>{    //Get userData from DB. Mostly used for admin purposes
         console.log('response is ', response)
         this.userData = response;
     },(error) => {
@@ -47,7 +41,7 @@ export class LoginFormComponent implements OnInit {
     console.log(this.username + " " + this.password)
     for (let i=0; i < this.userData.length; i++){
       //console.log(this.userData.userList[i].name);
-      if(this.username == this.userData[i].username && this.password == this.userData[i].password){
+      if(this.username == this.userData[i].username && this.password == this.userData[i].password){     //Checks login credentials against userData array
         console.log("Success!");
         loginCheck = "true"
         sessionStorage.setItem("status", this.userData[i].status)
@@ -63,7 +57,7 @@ export class LoginFormComponent implements OnInit {
     }
     if(loginCheck == "true"){
       this.router.navigateByUrl('/chat');
-    } else {
+    } else {                                                  //If correct, login, change address. Else, alert about the incorrect login
       alert("Incorrect Email or Password, please try again")
     }
     

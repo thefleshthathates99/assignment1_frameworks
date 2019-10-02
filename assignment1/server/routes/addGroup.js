@@ -1,5 +1,5 @@
 module.exports = function(db,app){
-    //Route to manage adding a product
+    //Route to add a Group to DB
   
     app.post('/api/addNewGroup',function(req,res){
       

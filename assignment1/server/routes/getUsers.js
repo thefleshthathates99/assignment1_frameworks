@@ -1,5 +1,5 @@
 module.exports = function(db,app){
-    //Route to get list of all items from the database.
+    //Route to get list of all users in the Database.
     
     app.get('/api/getUsers',function(req,res){
       

@@ -28,7 +28,7 @@ export class DelteUsersComponent implements OnInit {
   private getData(){
     this.rootService.getuserData().subscribe((response)=>{
         this.userArray = response ;
-        console.log(this.userArray);
+        console.log(this.userArray);                        //Get data from the database
     },(error) => {
         console.log('error is ', error)
     })
@@ -39,7 +39,7 @@ export class DelteUsersComponent implements OnInit {
     console.log(sessionStorage.getItem("logCheck"))
     console.log(sessionStorage.getItem("status"))
     console.log(sessionStorage.getItem("name"))
-
+                                                              //Check current sessionStorage and load into variables
     this.displayUsername = sessionStorage.getItem("username");
     this.loginCheck = sessionStorage.getItem("logCheck");
     this.userStatus = sessionStorage.getItem("status");
@@ -54,29 +54,12 @@ export class DelteUsersComponent implements OnInit {
     for(let i = 0; i < this.userArray.length; i++){
       var toBeDeleted = parseInt(this.deleteId)
       if (this.userArray[i]._id == toBeDeleted){
-        this.rootService.deleteUser(this.userArray[i]).subscribe((data)=>{
+        this.rootService.deleteUser(this.userArray[i]).subscribe((data)=>{ //Call the rootService deleteUser route, deleting a user
           console.log(data);
         })
-
-        // var deleting = this.userArray.userList.indexOf(this.userArray.userList[i])
-        // console.log(deleting)
-        // alert("User deleted: " + this.userArray.userList[deleting].name)
-        // this.userArray.userList.splice(deleting, 1);
-        // console.log(this.userArray)
-        
         break;
       } 
     }
-  }
-
-  private testPost(){
-    this.rootService.saveAPIData(this.userArray).subscribe((response)=>{
-      console.log(response);
-      alert("Changes Saved")
-      this.router.navigateByUrl('/chat');
-  },(error) => {
-      console.log('error is ', error)
-  })
   }
 
 }

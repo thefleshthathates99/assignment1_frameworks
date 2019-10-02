@@ -55,21 +55,11 @@ export class EditUsersComponent implements OnInit {
     console.log(sessionStorage.getItem("logCheck"))
     console.log(sessionStorage.getItem("status"))
     console.log(sessionStorage.getItem("name"))
-
+                                                                //Loads sessionStorage data
     this.displayUsername = sessionStorage.getItem("username");
     this.loginCheck = sessionStorage.getItem("logCheck");
     this.userStatus = sessionStorage.getItem("status");
     this.userName = sessionStorage.getItem("name");
-  }
-
-  private testPost(){
-    this.rootService.saveAPIData(this.userArray).subscribe((response)=>{
-      console.log(response);
-      alert("Changes Saved")
-      this.router.navigateByUrl('/chat');
-  },(error) => {
-      console.log('error is ', error)
-  })
   }
 
   private addUser(){
@@ -77,7 +67,7 @@ export class EditUsersComponent implements OnInit {
     var newId = curId + 1
     newId = parseInt(newId)
     var newUserInput = {_id: newId, name: this.newName, username: this.newEmail, password: this.newPassword, status: this.newRole}
-    this.rootService.addUser(newUserInput).subscribe((data)=>{
+    this.rootService.addUser(newUserInput).subscribe((data)=>{                                                                      //Add new user, calling the addUser route in rootService
       console.log(data);
     })
     console.log(this.userArray);
@@ -95,7 +85,7 @@ export class EditUsersComponent implements OnInit {
           var editUserInput = this.userArray[i]
           editUserInput.status = this.editRole;
           console.log(editUserInput)
-          this.rootService.editUser(editUserInput).subscribe((data)=>{
+          this.rootService.editUser(editUserInput).subscribe((data)=>{    //Calls the editUser route in rootService
             console.log(data);
           })
         } 

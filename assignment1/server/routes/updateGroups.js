@@ -1,5 +1,5 @@
 module.exports = function(db,app){
-    //Route to delete a single item
+    //Route to update the groups Database. Called everytime an edit is made to the groups from Angular
     
     app.post('/api/updateGroups',function(req,res){
         

@@ -1,6 +1,6 @@
 module.exports = function(db,app){
-    //Route to manage adding a product
-  
+    //Route that adds data to the mongoDB. Personal use by admin
+    
     app.get('/api/addData',function(req,res){
       
         const collection = db.collection('users');
